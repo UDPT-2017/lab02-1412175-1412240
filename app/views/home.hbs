@@ -1,0 +1,28 @@
+{{#if user}}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Profile Information</h3>
+    </div>
+    <div class="panel-body">
+      <p>Username: {{user.username}}</p>
+      <p>Avatar: <img src="{{user.ava}}"/></p>
+    </div>
+  </div>
+
+{{else}}
+  <div class="content-login">
+    <h1>Log in Chat Hihi</h1>
+     <form method="post" action="/login">
+       <input type="text" name="username" placeholder="Username">
+       <input type="password" name="password" placeholder="Password">
+       <input type="submit" name="login" class="btn btn-primary" value="Login">
+     </form>
+     <div class="register">
+       <a href="/signin">Register</a>
+       <a href=""><i id="fb" class="fa fa-facebook-square fa-2x social"></i></a>
+       <a href=""><i id="tw" class="fa fa-twitter-square fa-2x social"></i></a>
+       <a href=""><i id="gp" class="fa fa-google-plus-square fa-2x social"></i></a>
+        <a href=""><i id="gmail" class="fa fa-envelope-square fa-2x social"></i></a>
+     </div>
+   </div>
+{{/if}}
