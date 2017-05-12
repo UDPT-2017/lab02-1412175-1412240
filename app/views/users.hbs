@@ -1,0 +1,10 @@
+<h1>List Users</h1>
+<div class="list-group">
+  {{#each listusers}}
+  <a href="#" class="list-group-item" style="margin-bottom: 10px; height: 60px; padding: 10px;">
+    <img src="{{ava}}" width="30" height="30">
+    {{username}}
+    <button type="button" name="button" style="float: right;" class="btn btn-primary">Add</button>
+  </a>
+  {{/each}}
+</div>

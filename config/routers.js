@@ -1,7 +1,9 @@
+var UsersController = require('../app/controllers/UsersController');
+
 module.exports = function(app,session,passport){
   app.get('/', function(req, res){
-  res.render('home', {user: req.user});
-});
+    res.render('home', {user: req.user, home: "active"});
+  });
 
 //displays our signup page
 app.get('/signin', function(req, res){
@@ -29,4 +31,16 @@ app.get('/logout', function(req, res){
   res.redirect('/');
   req.session.notice = "You have successfully been logged out " + name + "!";
   });
+
+
+  app.get('/users', UsersController);
+
+  app.get('/messages', function(req, res){
+    res.render('messages', {user: req.user, messages: "active"});
+  });
+
+  app.get('/about', function(req, res){
+    res.render('about', {user: req.user, about: "active"});
+  });
+
 };
