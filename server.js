@@ -15,7 +15,6 @@ var express = require('express'),
 var app = express();
 require('./config/middleware')(app,session,passport);
 require('./config/views')(app);
-
 require('./app/models/passport')(session,passport);
 require('./config/routers')(app,session,passport);
 //===============PASSPORT===============

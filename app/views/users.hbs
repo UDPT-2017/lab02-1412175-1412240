@@ -1,10 +1,25 @@
-<h1>List Users</h1>
-<div class="list-group">
+<div class="panel panel-info" style="height: 500px;">
+    <div class="panel-heading">
+      <span class="panel-title" style="margin-left: 40%;">List Users<span>
+    </div>
+    <div class="panel-body user-body">
   {{#each listusers}}
-  <a href="#" class="list-group-item" style="margin-bottom: 10px; height: 60px; padding: 10px;">
-    <img src="{{ava}}" width="30" height="30">
-    {{username}}
-    <button type="button" name="button" style="float: right;" class="btn btn-primary">Add</button>
-  </a>
+  <div class="list-group-item" style="margin-bottom: 10px; height: 60px; padding: 10px;">
+    <table style="width: 100%;">
+      <tr>
+        <th rowspan="2" class="col-md-1 col-sm-1">  <img src="{{ava}}" width="30" height="30"></th>
+        <th  class="col-md-9 col-sm-9">{{username}}</th>
+          {{#if unf}}
+          <th rowspan="2" class="col-md-2 col-sm-2" style="text-align: right;" id="btn_{{username}}"><button type="button" name="button" class="btn btn-primary" onclick="addfriend('{{username}}')">Add</button></th>
+          {{else}}
+          <th rowspan="2" class="col-md-2 col-sm-2" style="text-align: right;" id="btn_{{username}}"><button type="button" name="button" class="btn btn-primary" onclick="removefriend('{{username}}')" >Remove</button></th>
+          {{/if}}
+      </tr>
+      <tr>
+        <th class="col-md-9 col-sm-9">{{username}}</th>
+      </tr>
+    </table>
+  </div>
   {{/each}}
+</div>
 </div>
