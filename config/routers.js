@@ -1,6 +1,7 @@
 
 var UsersController = require('../app/controllers/UsersController');
 var AddFriendController = require('../app/controllers/AddFriendController');
+var ChatController = require('../app/controllers/ChatController');
 
 
 module.exports = function(app,session,passport){
@@ -37,4 +38,10 @@ app.get('/logout', function(req, res){
   });
 	app.get('/users', UsersController);
    app.get('/users/addfriend', AddFriendController);
+    app.get('/messages', function(req, res){
+    res.render('messages', {user: req.user, messages: "active"});
+  });
+    app.get('/messages/:id',ChatController);
+	app.post('/messages/:id/send',SMController);
+	
 };
