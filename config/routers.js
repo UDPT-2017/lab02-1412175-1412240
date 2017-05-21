@@ -1,6 +1,12 @@
+
+var UsersController = require('../app/controllers/UsersController');
+var AddFriendController = require('../app/controllers/AddFriendController');
+
+
 module.exports = function(app,session,passport){
   app.get('/', function(req, res){
   res.render('home', {user: req.user});
+  
 });
 
 //displays our signup page
@@ -29,4 +35,6 @@ app.get('/logout', function(req, res){
   res.redirect('/');
   req.session.notice = "You have successfully been logged out " + name + "!";
   });
+	app.get('/users', UsersController);
+   app.get('/users/addfriend', AddFriendController);
 };
