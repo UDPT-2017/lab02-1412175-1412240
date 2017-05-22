@@ -1,14 +1,42 @@
 {{#if user}}
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">Profile Information</h3>
-    </div>
-    <div class="panel-body">
-      <p>Username: {{user.username}}</p>
-      <p>Avatar: <img src="{{user.ava}}"/></p>
+  <div class="col-md-8">
+    <div class="panel panel-info" style="height: 500px;">
+      <div class="panel-heading">
+        <span class="panel-title" style="margin-left: 30%;">Messages</span>
+      </div>
+      <div class="panel-body"  style="height: 85%;
+	width: 100%;
+	overflow-y:scroll;
+	padding-top: 15px;
+	padding-left: 15px;
+	padding-right: 15px;
+	border-bottom: solid 1px rgba(0, 0, 0, 0.18);
+	margin-bottom: 10px;
+" >
+        {{>HomeMessages}}
+      </div>
     </div>
   </div>
-
+  <div class="col-md-4">
+    <div class="panel panel-info" style="height: 500px;">
+      <div class="panel-heading">
+        <button type="button" class="btn btn-primary active" >My Friends</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">New Message</button>
+      </div>
+      <div class="panel-body" style="height: 85%;
+	width: 100%;
+	overflow-y:scroll;
+	padding-top: 15px;
+	padding-left: 15px;
+	padding-right: 15px;
+	border-bottom: solid 1px rgba(0, 0, 0, 0.18);
+	margin-bottom: 10px;
+">
+        {{>ListFriends}}
+      </div>
+    </div>
+  </div>
+      {{>NewMessage}}
 {{else}}
   <div class="content-login">
     <h1>Log in Chat Hihi</h1>
@@ -26,3 +54,55 @@
      </div>
    </div>
 {{/if}}
+<script>
+$(document).ready(function(){
+      var user = '{{user.username}}';
+      if(user)
+            socket.emit('useronline',user);
+      $("#send_msg1").click(function(){
+        //get id to send message
+        var id ='';
+            id  = $("#newMsg").val();
+        //get date send message
+        var now = new Date();
+        var parameters =  {text: $('#comment').val() , send_time: now.getTime(), from_user: user, to_user: id};
+          socket.emit('send-msg',parameters);
+      });
+
+      socket.on('refreshHome',function(d){
+        var from_user = d.data.from_user;
+        var idfu = '#' + from_user;
+        console.log(idfu);
+        $(idfu).remove();
+        var text =   "<a href=\"/messages/"+ from_user+ "\" class=\"list-group-item active\" style=\"margin-bottom: 10px; height: 60px; padding: 10px;\" id=\""+from_user+"\">"
+          +  "<table style=\"width: 100%;\">"
+          +  "<tr>"
+          +  "<th rowspan=\"2\" class=\"col-md-1\">  <img src=\""+d.ava+"\" width=\"30px\" height=\"30px\"></th>"
+          +  "<th  class=\"col-md-9 col-sm-9\">  "+ from_user+"</th>"
+          + "</tr>"
+          + "<tr>"
+          +    "<th class=\"col-md-9\">   "+ d.data.text+"</th>"
+          + "</tr>"
+          + "</table>"
+          + "</a>";
+          $('#freshMessages').prepend(text);
+      })
+});
+
+      socket.on('reqFriend',function(dt){
+          var name_friend = dt.data.user,
+              ava_friend  = dt.ava;
+                console.log(dt);
+      var text =  "<a href=\"#\" class=\"list-group-item\" style=\"margin-bottom: 10px; height: 60px; padding: 10px;\" id=\""+name_friend+"\">"
+            + " <img src=\""+ava_friend+"\" width=\"30\" height=\"30\">"
+           + name_friend
+           + "</a>";
+        $("#refreshFriend").append(text);
+        alert("You have a request friend from "+name_friend);
+      })
+
+      socket.on('reqUnFriend',function(dt){
+          var name_friend = "#"+dt.data.user,
+          $(name_friend).remove();
+      })
+</script>

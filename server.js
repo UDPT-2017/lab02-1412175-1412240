@@ -4,6 +4,7 @@ var express = require('express'),
     passport = require('passport'),
     session = require('express-session');
 
+
   //  TwitterStrategy = require('passport-twitter'),
   //  GoogleStrategy = require('passport-google'),
   //  FacebookStrategy = require('passport-facebook');
@@ -13,11 +14,13 @@ var express = require('express'),
 //    funct = require('./functions.js'); //funct file contains our helper functions for our Passport and database work
 
 var app = express();
+    server = require('http').createServer(app);
+    io = require('socket.io')(server);
+
 require('./config/middleware')(app,session,passport);
 require('./config/views')(app);
-
 require('./app/models/passport')(session,passport);
-require('./config/routers')(app,session,passport);
+require('./config/routers')(app,session,passport,io);
 //===============PASSPORT===============
 
 //This section will contain our work with Passport
@@ -33,5 +36,6 @@ require('./config/routers')(app,session,passport);
 
 //===============PORT=================
 var port = process.env.PORT || 5000; //select your port or let it pull from your .env file
-app.listen(port);
+console.log(process.env.DATABASE_URL);
+server.listen(port);
 console.log("listening on " + port + "!");

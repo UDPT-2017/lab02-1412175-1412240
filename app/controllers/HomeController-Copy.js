@@ -9,9 +9,8 @@ var HomeController = function(req, res){
       //console.log(data);
         (function iterator(i) {
           if (i == data.length) {
-            console.log(listMessages);
             listMessages.sort((a, b) => Number(b.cr_id) - Number(a.cr_id)); //sort list messages descends
-            res.render('home', {user: req.user, home: "active", listMessages: listMessages, listFriends: listFriends});
+            res.render('home', {user: req.user, home: "active", listMessages: listMessages, listFriends: listFriends, temp: true});
                 return;
           }
           var cquery = "select * from conversation_reply R where con_id = $1 ORDER BY R.cr_id DESC LIMIT 1";

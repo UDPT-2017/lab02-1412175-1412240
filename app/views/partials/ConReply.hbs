@@ -1,0 +1,13 @@
+{{#each listMessages}}
+      <div class="message-container" style="float: {{position}};
+      background-color:{{color}};">
+        <div class="message-text-container">
+          <div style="   font-size: 9px; color: rgba(0, 0, 0, 0.69);">
+            {{send_time}}  </div>
+          <div class="message-text">{{text}}</div>
+          <div style="   font-size: 9px; color: rgba(0, 0, 0, 0.69); float: right;">
+            {{see_time}}
+          </div>
+        </div>
+		  </div>
+{{/each}}
