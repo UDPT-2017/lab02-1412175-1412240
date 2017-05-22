@@ -44,7 +44,7 @@ socket.on('res-addfriend',function(dt){
           if(dt.check){
             var id = "#btn_"+dt.data.friend;
             $(id).empty();
-            $(id).append("<button type=\"button\" name=\"button\" class=\"btn btn-primary\" onclick=\"removefriend('"+dt.data.friend+"')\" >Add</button>");
+            $(id).append("<button type=\"button\" name=\"button\" class=\"btn btn-primary\" onclick=\"addfriend('"+dt.data.friend+"')\" >Add</button>");
           }else{
               alert("Can not send request to!!!"+ dt.data.friend);
           }
