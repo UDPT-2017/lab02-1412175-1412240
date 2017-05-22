@@ -102,7 +102,7 @@ $(document).ready(function(){
       })
 
       socket.on('reqUnFriend',function(dt){
-          var name_friend = "#"+dt.data.user,
+          var name_friend = "#"+dt.data.user;
           $(name_friend).remove();
       })
 </script>
