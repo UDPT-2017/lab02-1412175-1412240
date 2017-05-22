@@ -6,7 +6,7 @@ Thành viên:
 * [X] **1412175** Trần Hiệp (tranhiepqna)
 * [X] **1412240** Bùi Đình Khánh (khanhbui1412240)
 
-URL: **lab2-1412175-1412240.herokuapp.com*
+URL: **lab2-1412175-1412240.herokuapp.com**
 
 ## Yêu cầu
 
@@ -31,7 +31,7 @@ Yêu cầu **bắt buộc**
 * [X] Nhấn nút "new message" sẽ chuyển sang giao diện cho phép người dùng gửi tin nhắn cho người dùng trong danh sách bạn bè. Người gửi phải nằm trong danh sách bạn bè và cho phép người dùng chọn qua combobox.(**1412175**)
 * [X] Nhấn "sent" sẽ chuyển sang giao diện hiển thị danh sách tin nhắn đã gửi. Mỗi tin nhắn cần hiện thời gian người nhận đã đọc.(**1412175**)
 * [x] Nhấn "refresh" để cập nhật danh sách tin nhắn mới nhất (ko nạp lại dữ liệu trên trang)(Tự cập nhật dữ liệu khi có người khác gửi không cần nhấn refresh).(**1412175**) 
-* [ ] Cho phép người dùng layout tin nhắn bằng markdown. (**MSSV**)(Làm dùng như messager của facebook nên không làm chứ năng này)
+* [ ] Cho phép người dùng layout tin nhắn bằng markdown. (**MSSV**)(Làm như messager của facebook nên không làm chứ năng này)
 
 Yêu cầu **không bắt buộc**:
 * [x] Chuyển nút "add" thành nút "remove" sau khi thêm bạn thành công.(**1412175**)
