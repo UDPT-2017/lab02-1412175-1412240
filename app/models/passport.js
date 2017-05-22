@@ -41,7 +41,6 @@ passport.use('local-signup', new LocalStrategy(
     funct.localReg(username, password, req.body.email, req.body.phone)
     .then(function (user) {
       if (user) {
-        console.log(user);
         console.log("REGISTERED: " + user.username);
         req.session.success = 'You are successfully registered and logged in ' + user.username + '!';
         done(null, user);

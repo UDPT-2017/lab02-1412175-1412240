@@ -1,0 +1,78 @@
+<div class="panel panel-info" style="height: 500px;">
+  {{#if friend}}
+  <div class="panel-heading">
+    <span class="panel-title" style="margin-left: 40%;">Chating with {{friend}}</span>
+  </div>
+  {{else}}
+  <div class="panel-heading">
+    <span class="panel-title" style="margin-left: 40%;">Chating with
+      <input list="friendss" name="browser" id="newMsg">
+      <datalist id="friendss">
+        {{#each listFriends}}
+          <option value="{{name_friend}}">
+        {{/each}}
+      </datalist>
+  </div>
+  {{/if}}
+  <div class="panel-body "style="height: 330px;
+	width: 100%;
+	overflow-y:scroll;" id="bodyMessage">
+    {{>ConReply}}
+  </div>
+  <div class="form-group">
+    <label for="comment">Message:</label>
+    <textarea class="form-control" rows="2" id="comment"></textarea>
+     <input type="submit" name="send" class="btn btn-primary" value="Send" id="send_msg">
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    var user = '{{user.username}}';
+    if(user)
+          socket.emit('useronline',user);
+    $("#send_msg").click(function(){
+      //get id to send message
+      var id ='';
+      if('{{friend}}')
+          id  = '{{friend}}';
+      else {
+          id  = $("#newMsg").val();
+      }
+      //get date send message
+      var now = new Date();
+      var parameters =  {text: $('#comment').val() , send_time: now.getTime(), from_user: '{{user.username}}', to_user: id}
+        /*  $.post('/messages/'+ id+'/send',parameters,function(data){
+        console.log(data);*/
+      socket.emit('send-msg',parameters);
+      });
+    });
+    socket.on('res-send',function(dt){
+      if(dt.check){
+        var now = new Date(dt.data.send_time);
+        var text =   "<div class=\"message-container\" style=\"float: right; background-color:#1a75ff;\">"
+        +  " <div class=\"message-text-container\">"
+        + "<div style=\"font-size: 9px; color: rgba(0, 0, 0, 0.69);\">"+ now.toDateString() + ' ' + now.toLocaleTimeString() + " </div>"
+          +    "<div class=\"message-text\">"+dt.data.text+ "</div>"
+        +  "  </div>"
+      + "  </div>";
+        $('#bodyMessage').append(text);
+        $('#comment').val("");
+      }else{
+        alert("Can not send message!!!");
+      }
+    })
+    socket.on('hihi',function(data){
+        console.log(data);
+        if(data.from_user=='{{friend}}'){
+          var now = new Date(data.send_time);
+          var text =   "<div class=\"message-container\" style=\"float: left; background-color:#fff;\">"
+          +  " <div class=\"message-text-container\">"
+          + "<div style=\"font-size: 9px; color: rgba(0, 0, 0, 0.69);\">"+ now.toDateString() + ' ' + now.toLocaleTimeString() + " </div>"
+            +    "<div class=\"message-text\">"+data.text+ "</div>"
+          +  "  </div>"
+        + "  </div>";
+          console.log(text);
+          $('#bodyMessage').append(text);
+        }
+    })
+</script>

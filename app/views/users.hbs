@@ -1,0 +1,65 @@
+<div class="panel panel-info" style="height: 500px;">
+    <div class="panel-heading">
+      <span class="panel-title" style="margin-left: 40%;">List Users<span>
+    </div>
+    <div class="panel-body user-body">
+  {{#each listusers}}
+  <div class="list-group-item" style="margin-bottom: 10px; height: 60px; padding: 10px;">
+    <table style="width: 100%;">
+      <tr>
+        <th rowspan="2" class="col-md-1 col-sm-1">  <img src="{{ava}}" width="30" height="30"></th>
+        <th  class="col-md-9 col-sm-9">{{username}}</th>
+          {{#if unf}}
+          <th rowspan="2" class="col-md-2 col-sm-2" style="text-align: right;" id="btn_{{username}}"><button type="button" name="button" class="btn btn-primary" onclick="addfriend('{{username}}')">Add</button></th>
+          {{else}}
+          <th rowspan="2" class="col-md-2 col-sm-2" style="text-align: right;" id="btn_{{username}}"><button type="button" name="button" class="btn btn-primary" onclick="removefriend('{{username}}')" >Remove</button></th>
+          {{/if}}
+      </tr>
+      <tr>
+        <th class="col-md-9 col-sm-9">{{username}}</th>
+      </tr>
+    </table>
+  </div>
+  {{/each}}
+</div>
+</div>
+<script>
+$(document).ready(function() {
+  var user = '{{user.username}}';
+  if(user)
+        socket.emit('useronline',user);
+})
+socket.on('res-addfriend',function(dt){
+    console.log(dt);
+        if(dt.check){
+          var id = "#btn_"+dt.data.friend;
+          $(id).empty();
+          $(id).append("<button type=\"button\" name=\"button\" class=\"btn btn-primary\" onclick=\"removefriend('"+dt.data.friend+"')\" >Remove</button>");
+        }else{
+            alert("Can not send request to!!!"+ dt.data.friend);
+        }
+  })
+  socket.on('res-unfriend',function(dt){
+      console.log(dt);
+          if(dt.check){
+            var id = "#btn_"+dt.data.friend;
+            $(id).empty();
+            $(id).append("<button type=\"button\" name=\"button\" class=\"btn btn-primary\" onclick=\"removefriend('"+dt.data.friend+"')\" >Add</button>");
+          }else{
+              alert("Can not send request to!!!"+ dt.data.friend);
+          }
+    })
+
+function addfriend(fr){
+  $(document).ready(function(){
+       var data = {user: '{{user.username}}',friend: fr};
+       socket.emit('addfriend',data);
+  });
+}
+function removefriend(fr) {
+  $(document).ready(function(){
+    var data = {user: '{{user.username}}',friend: fr};
+    socket.emit('unfriend',data);
+  });
+}
+</script>

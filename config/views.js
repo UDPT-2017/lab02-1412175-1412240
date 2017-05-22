@@ -5,7 +5,7 @@ module.exports = function(app){
     extname: '.hbs',
     defaultLayout: 'main',
     layoutsDir: path.resolve("app/views/layouts/"),
-    partialsDir: path.resolve("app/views/partials")   
+    partialsDir: path.resolve("app/views/partials")
   }));
 
   app.set('view engine', 'hbs');

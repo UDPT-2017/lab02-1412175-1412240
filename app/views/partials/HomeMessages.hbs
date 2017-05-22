@@ -1,0 +1,15 @@
+<div id="freshMessages">
+</div>
+{{#each listMessages}}
+  <a href="/messages/{{friend}}" class="list-group-item {{seen}}" style="margin-bottom: 10px; height: 60px; padding: 10px;" id="{{friend}}">
+    <table style="width: 100%;">
+    <tr>
+      <th rowspan="2" class="col-md-1">  <img src="{{ava_friend}}" width="30px" height="30px"></th>
+      <th  class="col-md-9 col-sm-9">   {{from_user}}</th>
+    </tr>
+    <tr>
+      <th class="col-md-9">   {{text}}</th>
+    </tr>
+    </table>
+  </a>
+{{/each}}
